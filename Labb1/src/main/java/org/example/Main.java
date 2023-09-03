@@ -84,7 +84,7 @@ public class Main {
             sum += Integer.parseInt(price.get(1));
         }
         System.out.printf("---------------------------%n");
-        System.out.printf("|          Priser         |%n");
+        System.out.printf("|      Min/Max/Medel      |%n");
         System.out.printf("---------------------------%n");
         System.out.printf("                           %n");
         System.out.printf("| %-10s | %-10s |%n","MAX", sortedPrices.get(sortedPrices.size() - 1).get(1) + " öre");
