@@ -2,13 +2,15 @@ package org.labb2;
 
 abstract class Shape implements Comparable<Shape> {
     abstract double getArea();
+
     abstract double getCircumference();
 
     @Override
-    public int compareTo(Shape other){
+    public int compareTo(Shape other) {
         return Double.compare(this.getArea(), other.getArea());
     }
-    public static Shape newShape(String type, double... params){
+
+    public static Shape newShape(String type, double... params) {
         return switch (type) {
             case "Circle" -> {
                 if (params.length > 1) {

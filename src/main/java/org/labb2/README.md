@@ -1,6 +1,5 @@
 # LABORATION 2
 
-
 ## Uppgift 1
 
     1. X Skapa 2 klasser. Shape & Circle
@@ -18,7 +17,7 @@
         X implementeras.
 
 ## Uppgift 2
-    
+
     1.X Skapa ett program som skapar ett par objekt av 
         X respektive typ och spara dem i en ArrayList.
     2.  X Använd .sort med null som param för att utnyttja naturlig
@@ -27,7 +26,7 @@
 
 ## Uppgift 3
 
-    1.  Utöka programmet till att även innehålla ett Set
+    1. X Utöka programmet till att även innehålla ett Set
         för att lagra typer. (HashSet) 
     2.  Skapa ett antal olika och lägg till.
     3. Låt minst 2 shapes ha samma mått och typ

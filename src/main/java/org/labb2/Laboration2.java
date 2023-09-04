@@ -1,17 +1,17 @@
 package org.labb2;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
-public class labb2 {
+public class Laboration2 {
     public static void main(String[] args) {
 
         Rectangle one = new Rectangle();
         Circle two = new Circle(1.5);
-        Rectangle three = new Rectangle(3.1, 7.9);
-        Rectangle four = new Rectangle(1.1, 1.0);
-        Circle five = new Circle(5.0);
+        Rectangle three = new Rectangle(2, 10);
+        Rectangle four = new Rectangle(10, 2);
+        Circle five = new Circle(1.5);
 
 
         ArrayList<Shape> shapes = new ArrayList<>();
@@ -21,18 +21,30 @@ public class labb2 {
         shapes.add(one);
         shapes.add(two);
 
-        for(var shape : shapes){
+        for (var shape : shapes) {
             System.out.println(shape.getArea());
         }
 
         System.out.println();
         shapes.sort(null);
 
-        for(var shape : shapes){
+        for (var shape : shapes) {
             System.out.println(shape.getArea());
         }
-        
+        System.out.println();
         Shape test = Shape.newShape("Circle", 1.0);
         System.out.println(test.getArea());
+        System.out.println();
+        Set<Shape> shapeSet = new HashSet<>();
+        shapeSet.add(two);
+        shapeSet.add(one);
+        shapeSet.add(three);
+        shapeSet.add(five);
+        shapeSet.add(four);
+
+        for (var shape : shapeSet) {
+            System.out.println(shape.getArea());
+        }
+
     }
 }
