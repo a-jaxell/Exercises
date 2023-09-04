@@ -28,9 +28,9 @@
 
     1. X Utöka programmet till att även innehålla ett Set
         för att lagra typer. (HashSet) 
-    2.  Skapa ett antal olika och lägg till.
-    3. Låt minst 2 shapes ha samma mått och typ
-        Endast ett av de borde lagras, men vad händer när du skriver ut innehållet?
+    2. X Skapa ett antal olika och lägg till.
+    3. X Låt minst 2 shapes ha samma mått och typ
+        X Endast ett av de borde lagras, men vad händer när du skriver ut innehållet?
     
-    4. implementera .equals och hashCode metoder till shape klasser
+    4. X implementera .equals och hashCode metoder till shape klasser
         efter detta borde bara ett ex lagras.
