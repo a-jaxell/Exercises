@@ -9,7 +9,11 @@ abstract class Shape implements Comparable<Shape> {
     public int compareTo(Shape other) {
         return Double.compare(this.getArea(), other.getArea());
     }
-
+    @Override
+    public String toString(){
+        String area = "Area: ";
+        return area + String.valueOf(getArea());
+    }
     public static Shape newShape(String type, double... params) {
         return switch (type) {
             case "Circle" -> {

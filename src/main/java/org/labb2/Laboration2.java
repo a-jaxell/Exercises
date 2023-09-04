@@ -43,8 +43,9 @@ public class Laboration2 {
         shapeSet.add(four);
 
         for (var shape : shapeSet) {
-            System.out.println(shape.getArea());
+            System.out.println(shape);
         }
+
 
     }
 }
