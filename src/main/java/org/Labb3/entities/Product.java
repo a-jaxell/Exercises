@@ -4,7 +4,6 @@ import java.util.UUID;
 
 public class Product {
     private final UUID id;
-
     private int rating;
     private String name;
     private ProductCategory category;
@@ -13,12 +12,13 @@ public class Product {
 
 
     public Product(String name, ProductCategory category, int rating) {
+        Date date = new Date();
         this.id = UUID.randomUUID();
         this.name = name;
         this.rating = rating;
         this.category = category;
-        this.dateCreated = new Date();
-        this.dateLastModified = new Date();
+        this.dateCreated = date;
+        this.dateLastModified = date;
     }
 
     public String getName() {

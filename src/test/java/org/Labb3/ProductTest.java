@@ -32,4 +32,11 @@ class ProductTest {
         //assert
         assertEquals(5, actual);
     }
+    @Test
+    void testRatingBeingWithinRangeOfZeroToTen(){
+        new Product("Test", CHEF_KNIVES,11);
+        int actual = product.getRating();
+        assertThat(actual).isGreaterThanOrEqualTo(0);
+        assertThat(actual).isLessThanOrEqualTo(10);
+    }
 }
