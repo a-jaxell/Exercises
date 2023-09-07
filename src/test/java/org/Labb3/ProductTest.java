@@ -5,19 +5,31 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-
 import static org.Labb3.entities.ProductCategory.CHEF_KNIVES;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProductTest {
     static Product product;
     @BeforeAll
-    static void setUp(){
-        product = new Product("Santoku 17cm",CHEF_KNIVES,5);
+    static void setUp() {
+        product = new Product("Santoku 17cm", CHEF_KNIVES, 5);
     }
     @Test
     @DisplayName("Getter for name should work")
-    void testNameGetter(){
-            assertEquals("Santoku 17cm", product.getName());
+    void testNameGetter() {
+        assertEquals("Santoku 17cm", product.getName());
+    }
+
+    @Test
+    @DisplayName("The rating getter should return the rating in product.rating")
+    void testRatingGetter() {
+        //arrange
+
+        // act
+        int actual = product.getRating();
+
+        //assert
+        assertEquals(5, actual);
     }
 }
