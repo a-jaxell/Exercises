@@ -27,4 +27,8 @@ public class Product {
     public int getRating() {
         return rating;
     }
+
+    public UUID getId() {
+        return id;
+    }
 }

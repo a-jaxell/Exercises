@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,5 +26,12 @@ class WarehouseTest {
         List<Product> productList = warehouse.getProducts();
         warehouse.addNewProduct(product);
         assertThat(productList).isExactlyInstanceOf(warehouse.getProducts().getClass());
+    }
+    @Test
+    void testGettingProductWithIdShouldReturnProduct(){
+        warehouse.addNewProduct(product);
+        UUID id = product.getId();
+        Product actual = warehouse.getProduct(id);
+        assertEquals(product, actual);
     }
 }

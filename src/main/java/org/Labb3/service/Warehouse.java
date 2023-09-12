@@ -2,6 +2,8 @@ package org.Labb3.service;
 
 import org.Labb3.entities.Product;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.UUID;
 
 public class Warehouse {
 
@@ -18,5 +20,12 @@ public class Warehouse {
             throw new  IllegalArgumentException("Input cannot be null");
         }
         storage.add(product);
+    }
+
+    public Product getProduct(UUID id) {
+        Optional<Product> result = storage.stream()
+                .filter(o -> o.getId() == id)
+                .findFirst();
+        return result.orElse(null);
     }
 }
