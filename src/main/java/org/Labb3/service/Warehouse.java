@@ -22,10 +22,14 @@ public class Warehouse {
         storage.add(product);
     }
 
-    public Product getProduct(UUID id) {
-        Optional<Product> result = storage.stream()
+    public Product getProduct(UUID id) throws IllegalArgumentException, NullPointerException{
+        Product result = storage.stream()
                 .filter(o -> o.getId() == id)
-                .findFirst();
-        return result.orElse(null);
+                .findFirst()
+                .orElse(null);
+        if(result == null){
+            throw new NullPointerException("Error: Product Id does not exist");
+        }
+        return result;
     }
 }

@@ -34,4 +34,12 @@ class WarehouseTest {
         Product actual = warehouse.getProduct(id);
         assertEquals(product, actual);
     }
+    @Test
+    void testGettingProductWithWrongIdShouldThrowException(){
+        UUID id = product.getId();
+        UUID wrongId = UUID.randomUUID();
+        assertEquals(id.getClass(), wrongId.getClass());
+        assertFalse(id == wrongId);
+        assertThrows(NullPointerException.class, () -> warehouse.getProduct(wrongId));
+    }
 }
