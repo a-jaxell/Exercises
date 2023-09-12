@@ -5,15 +5,15 @@ import java.util.ArrayList;
 
 public class Warehouse {
 
-    public ArrayList<Product> getStorage() {
-        return storage;
+    private ArrayList<Product> storage = new ArrayList<>();
+    public ArrayList<Product> getProducts() {
+        return this.storage;
     }
 
-    private static ArrayList<Product> storage = new ArrayList<>();
     public Warehouse() {
     }
 
-    public static void addNewProduct(Product product) {
+    public void addNewProduct(Product product) {
         if(product == null){
             throw new  IllegalArgumentException("Input cannot be null");
         }
