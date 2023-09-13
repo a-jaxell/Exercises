@@ -1,5 +1,6 @@
 package org.Labb3.service;
 
+import org.Labb3.FakeProducts;
 import org.Labb3.entities.Product;
 import org.Labb3.entities.ProductCategory;
 import org.junit.jupiter.api.Test;
@@ -74,5 +75,9 @@ class WarehouseTest {
         assertEquals(newCategory, product.getCategory(), "Should recieve the new category");
         assertEquals(id, product.getId(), "Product Id shouldn't change");
         assertNotEquals(product.getDateLastModified(), lastModified, "Should update last modified date");
+    }
+    @Test
+    void testSortingProductsByNamesAlphabetically(){
+        System.out.println(FakeProducts.list().get(0).getName());
     }
 }
