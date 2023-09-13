@@ -1,8 +1,10 @@
 package org.Labb3.service;
 
 import org.Labb3.entities.Product;
+import org.Labb3.entities.ProductCategory;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.UUID;
 
 public class Warehouse {
@@ -31,5 +33,14 @@ public class Warehouse {
             throw new NullPointerException("Error: Product Id does not exist");
         }
         return result;
+    }
+
+    public void modifyProduct(UUID id, String newName, ProductCategory newCategory, int newRating) {
+        getProduct(id).setRating(newRating);
+        getProduct(id).setName(newName);
+        getProduct(id).setCategory(newCategory);
+        getProduct(id).setModifiedDate();
+
+        return;
     }
 }
