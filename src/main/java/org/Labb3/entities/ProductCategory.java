@@ -1,6 +1,6 @@
 package org.Labb3.entities;
 
-public enum ProductCategory{
+public enum ProductCategory {
     CHEF_KNIVES,
     WHISKS,
     TONGS,

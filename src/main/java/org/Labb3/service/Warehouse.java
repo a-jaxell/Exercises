@@ -3,33 +3,33 @@ package org.Labb3.service;
 import org.Labb3.entities.Product;
 import org.Labb3.entities.ProductCategory;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class Warehouse {
 
-    private ArrayList<Product> storage = new ArrayList<>();
-    public ArrayList<Product> getProducts() {
-        return this.storage;
-    }
+    private final ArrayList<Product> storage = new ArrayList<>();
 
     public Warehouse() {
     }
 
+    public ArrayList<Product> getProducts() {
+        return this.storage;
+    }
+
     public void addNewProduct(Product product) {
-        if(product == null){
-            throw new  IllegalArgumentException("Input cannot be null");
+        if (product == null) {
+            throw new IllegalArgumentException("Input cannot be null");
         }
         storage.add(product);
     }
 
-    public Product getProduct(UUID id) throws IllegalArgumentException, NullPointerException{
+    public Product getProduct(UUID id) throws IllegalArgumentException, NullPointerException {
         Product result = storage.stream()
                 .filter(o -> o.getId() == id)
                 .findFirst()
                 .orElse(null);
-        if(result == null){
+        if (result == null) {
             throw new NullPointerException("Error: Product Id does not exist");
         }
         return result;
@@ -41,6 +41,5 @@ public class Warehouse {
         getProduct(id).setCategory(newCategory);
         getProduct(id).setModifiedDate();
 
-        return;
     }
 }

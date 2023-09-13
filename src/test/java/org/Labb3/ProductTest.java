@@ -11,10 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProductTest {
     static Product product;
+
     @BeforeAll
     static void setUp() {
         product = new Product("Santoku 17cm", CHEF_KNIVES, 5);
     }
+
     @Test
     @DisplayName("Getter for name should work")
     void testNameGetter() {
@@ -32,9 +34,10 @@ class ProductTest {
         //assert
         assertEquals(5, actual);
     }
+
     @Test
-    void testRatingBeingWithinRangeOfZeroToTen(){
-        new Product("Test", CHEF_KNIVES,11);
+    void testRatingBeingWithinRangeOfZeroToTen() {
+        new Product("Test", CHEF_KNIVES, 11);
         int actual = product.getRating();
         assertThat(actual).isGreaterThanOrEqualTo(0);
         assertThat(actual).isLessThanOrEqualTo(10);
