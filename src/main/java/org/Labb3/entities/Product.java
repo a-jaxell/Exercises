@@ -70,4 +70,11 @@ public class Product {
     public LocalDateTime getDateLastModified() {
         return dateLastModified;
     }
+    public Product update (String newName, ProductCategory newCategory, int newRating){
+        name = newName;
+        category = newCategory;
+        rating = newRating;
+        dateLastModified = LocalDateTime.now();
+        return this;
+    }
 }

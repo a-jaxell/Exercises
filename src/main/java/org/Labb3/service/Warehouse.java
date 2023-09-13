@@ -36,10 +36,7 @@ public class Warehouse {
     }
 
     public void modifyProduct(UUID id, String newName, ProductCategory newCategory, int newRating) {
-        getProduct(id).setRating(newRating);
-        getProduct(id).setName(newName);
-        getProduct(id).setCategory(newCategory);
-        getProduct(id).setModifiedDate();
+        getProduct(id).update(newName, newCategory, newRating);
 
     }
 }
