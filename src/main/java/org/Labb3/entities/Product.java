@@ -77,4 +77,15 @@ public class Product {
         dateLastModified = LocalDateTime.now();
         return this;
     }
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", dateCreated=" + dateCreated +
+                ", rating=" + rating +
+                ", name='" + name + '\'' +
+                ", category=" + category +
+                ", dateLastModified=" + dateLastModified +
+                '}';
+    }
 }

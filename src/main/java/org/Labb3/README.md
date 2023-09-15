@@ -13,9 +13,9 @@
        Return a copy of the array that stores the objects
     5. ~~find a product with unique id~~
        1. find using the UUID
-    6. get all products sorted after name (a-z)
-        1. Create a natural order using CompareTo
-         2. implement hashcode, equals and toString
+    6. ~~get all products sorted after name (a-z)~~
+        1. Create a natural order using CompareTo (Used stream.sorted)
+         2. implement hashcode, equals and ~~toString~~
     7. Get all products created after a certain date
        1. use dateCreated.after(Date.now()) /.before to check wether date objects differ
     8. Get all products modified after being created( dateCreated != dateLastModified)
