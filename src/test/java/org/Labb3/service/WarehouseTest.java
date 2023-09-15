@@ -9,6 +9,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -78,6 +79,16 @@ class WarehouseTest {
     }
     @Test
     void testSortingProductsByNamesAlphabetically(){
-        System.out.println(FakeProducts.list().get(0).getName());
+
+        Warehouse warehouse = new Warehouse(FakeProducts.list());
+            List<Product> expected = warehouse.sortByName();
+
+            List<Product> actual = FakeProducts.list().stream()
+                    .sorted(Comparator.comparing(Product::getName))
+                    .toList();
+            List<Product> notActual = FakeProducts.list();
+
+        assertEquals(expected,actual);
+        assertNotEquals(expected, notActual);
     }
 }

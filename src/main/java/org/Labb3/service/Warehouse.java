@@ -4,13 +4,18 @@ import org.Labb3.entities.Product;
 import org.Labb3.entities.ProductCategory;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.UUID;
 
 public class Warehouse {
 
-    private final ArrayList<Product> storage = new ArrayList<>();
+    private ArrayList<Product> storage = new ArrayList<>();
 
     public Warehouse() {
+    }
+    public Warehouse(ArrayList<Product> storage) {
+        this.storage = storage;
     }
 
     public ArrayList<Product> getProducts() {
@@ -38,5 +43,8 @@ public class Warehouse {
     public void modifyProduct(UUID id, String newName, ProductCategory newCategory, int newRating) {
         getProduct(id).update(newName, newCategory, newRating);
 
+    }
+    public List<Product> sortByName(){
+        return storage.stream().sorted(Comparator.comparing(Product::getName)).toList();
     }
 }
