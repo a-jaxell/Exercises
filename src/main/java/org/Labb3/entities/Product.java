@@ -77,6 +77,9 @@ public class Product {
         dateLastModified = LocalDateTime.now();
         return this;
     }
+    public boolean isModified(){
+        return !dateCreated.isEqual(dateLastModified);
+    }
     @Override
     public String toString() {
         return "Product{" +

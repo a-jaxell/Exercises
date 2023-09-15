@@ -106,4 +106,20 @@ class WarehouseTest {
 
         assertThat(actual).allMatch(product1 -> product1.getDateCreated().isAfter(fixedDate2));
     }
+    @Test
+    void testGettingAllModifiedAfterCreated(){
+        Warehouse warehouse1 = new Warehouse();
+
+        warehouse1.addNewProduct(new Product("Sauce_Stirrer", ProductCategory.WHISKS, 1, fixedDate3));
+        warehouse1.addNewProduct(new Product("Cheese_Grater", ProductCategory.UTENSILS, 5, fixedDate2));
+        warehouse1.addNewProduct(new Product("Corn_Grabber", ProductCategory.TONGS, 2, fixedDate));
+
+        UUID productOneId = warehouse1.getProducts().get(0).getId();
+
+        warehouse1.modifyProduct(productOneId,"Sauce_swirler",ProductCategory.WHISKS, 8);
+        List<Product> actual = warehouse1.getProductsModified();
+
+        assertThat(warehouse1.getProducts()).contains(warehouse1.getProduct(productOneId));
+        assertThat(actual).allMatch(Product::isModified);
+    }
 }
