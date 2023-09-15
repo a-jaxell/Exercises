@@ -16,8 +16,8 @@
     6. ~~get all products sorted after name (a-z)~~
         1. Create a natural order using CompareTo (Used stream.sorted)
          2. implement hashcode, equals and ~~toString~~
-    7. Get all products created after a certain date
-       1. use dateCreated.after(Date.now()) /.before to check wether date objects differ
+    7. ~~Get all products created after a certain date~~
+       1. ~~use dateCreated.after(Date.now()) /.before to check wether date objects differ~~
     8. Get all products modified after being created( dateCreated != dateLastModified)
 
 2. class Product

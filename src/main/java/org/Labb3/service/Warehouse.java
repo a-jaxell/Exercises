@@ -3,6 +3,7 @@ package org.Labb3.service;
 import org.Labb3.entities.Product;
 import org.Labb3.entities.ProductCategory;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -46,5 +47,11 @@ public class Warehouse {
     }
     public List<Product> sortByName(){
         return storage.stream().sorted(Comparator.comparing(Product::getName)).toList();
+    }
+
+    public List<Product> getProductsCreatedAfter(LocalDateTime date) {
+        return storage.stream()
+                .filter(product -> product.getDateCreated().isAfter(date))
+                .toList();
     }
 }

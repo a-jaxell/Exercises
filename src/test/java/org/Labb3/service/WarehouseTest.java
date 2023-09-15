@@ -20,7 +20,11 @@ class WarehouseTest {
 
 
     Clock clock = Clock.fixed(Instant.ofEpochSecond(1631510400, 1000L), ZoneId.of("UTC"));
+    Clock clock2 = Clock.fixed(Instant.ofEpochSecond(1633504400, 1000L), ZoneId.of("UTC"));
+    Clock clock3 = Clock.fixed(Instant.ofEpochSecond(1637524400, 1000L), ZoneId.of("UTC"));
     LocalDateTime fixedDate = LocalDateTime.now(clock);
+    LocalDateTime fixedDate2 = LocalDateTime.now(clock2);
+    LocalDateTime fixedDate3 = LocalDateTime.now(clock3);
     Warehouse warehouse = new Warehouse();
     Product product = new Product("Microplane", ProductCategory.UTENSILS, 5);
 
@@ -90,5 +94,16 @@ class WarehouseTest {
 
         assertEquals(expected,actual);
         assertNotEquals(expected, notActual);
+    }
+    @Test
+    void testGettingAllProductsCreatedAfterACertainDate(){
+        Warehouse warehouse1 = new Warehouse();
+        warehouse1.addNewProduct(new Product("Sauce_Stirrer", ProductCategory.WHISKS, 1, fixedDate3));
+        warehouse1.addNewProduct(new Product("Cheese_Grater", ProductCategory.UTENSILS, 5, fixedDate2));
+        warehouse1.addNewProduct(new Product("Corn_Grabber", ProductCategory.TONGS, 2, fixedDate));
+
+        List<Product> actual = warehouse1.getProductsCreatedAfter(fixedDate2);
+
+        assertThat(actual).allMatch(product1 -> product1.getDateCreated().isAfter(fixedDate2));
     }
 }
