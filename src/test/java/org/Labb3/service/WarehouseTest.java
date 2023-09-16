@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -140,5 +141,12 @@ class WarehouseTest {
 
         assertThat(warehouse1.getProducts()).contains(warehouse1.getProduct(productOneId));
         assertThat(actual).allMatch(Product::isModified);
+    }
+    @Test
+    void shouldReturnAllCategoriesWithMinimumOneProduct(){
+        Warehouse warehouse1 = new Warehouse(FakeProducts.list());
+
+        List<ProductCategory> expected = warehouse1.getPopulatedCategories();
+        assertThat(ProductCategory.WHISKS).isNotIn(expected);
     }
 }

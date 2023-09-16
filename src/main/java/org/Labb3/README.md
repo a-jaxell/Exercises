@@ -40,7 +40,9 @@
 
 Extend functionality in warehouse for:
 
-* get all products that have 1 category linked
+* get all categories that have 1 products linked
+    * use streams to filter on product category and return them as a list
 * get all products in a category
+  * Map categories with .count() of products in that category
 * get a Map that has initial letters as key and amount of products as value
 * get all products with max rating, created this month, and sorted by date descending.

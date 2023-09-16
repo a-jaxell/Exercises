@@ -4,10 +4,8 @@ import org.Labb3.entities.Product;
 import org.Labb3.entities.ProductCategory;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Warehouse {
 
@@ -60,6 +58,16 @@ public class Warehouse {
     public List<Product> getProductsModified() {
         return storage.stream()
                 .filter(Product::isModified)
+                .toList();
+    }
+    public List<ProductCategory> getPopulatedCategories() {
+        // Map each category with products
+        Map<ProductCategory, List<Product>> categoriesWithProducts = storage.stream()
+                .collect(Collectors.groupingBy(Product::getCategory));
+        //Filter out all categories that are empty(have no products)
+        return categoriesWithProducts.entrySet().stream()
+                .filter(entry -> !entry.getValue().isEmpty())
+                .map(Map.Entry::getKey)
                 .toList();
     }
 }
