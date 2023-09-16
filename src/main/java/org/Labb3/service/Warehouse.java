@@ -70,4 +70,8 @@ public class Warehouse {
                 .map(Map.Entry::getKey)
                 .toList();
     }
+    public Map<ProductCategory, Long> getProductsPerCategory(){
+        return storage.stream()
+                .collect(Collectors.groupingBy(Product::getCategory, Collectors.counting()));
+    }
 }

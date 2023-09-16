@@ -149,4 +149,13 @@ class WarehouseTest {
         List<ProductCategory> expected = warehouse1.getPopulatedCategories();
         assertThat(ProductCategory.WHISKS).isNotIn(expected);
     }
+    @Test
+    void shouldReturnAmountOfProductsForGivenCategory(){
+        Warehouse warehouse1 = new Warehouse(FakeProducts.list());
+
+        Map<ProductCategory, Long> expected = warehouse1.getProductsPerCategory();
+        assertThat(expected).doesNotContainEntry(ProductCategory.WHISKS, 0L);
+        assertThat(expected).containsEntry(ProductCategory.UTENSILS, 3L);
+
+    }
 }
