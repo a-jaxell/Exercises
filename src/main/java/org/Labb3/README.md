@@ -7,31 +7,31 @@
         1. ~~method for adding new product to warehouse~~
         2. ~~Somewhere to put the products (ArrayList, List)~~
     3. ~~Modify existing product, (change name, category...)~~
-       1. ~~setters for name and other fields~~
-       2. run a private method inside of product
+        1. ~~setters for name and other fields~~
+        2. run a private method inside of product
     4. get all products
        Return a copy of the array that stores the objects
     5. ~~find a product with unique id~~
-       1. find using the UUID
+        1. ~~find using the UUID~~
     6. ~~get all products sorted after name (a-z)~~
-        1. Create a natural order using CompareTo (Used stream.sorted)
-         2. implement hashcode, equals and ~~toString~~
+        1. Create a natural order using CompareTo (Used stream.sorted instead)
+        2. implement hashcode, equals and ~~toString~~
     7. ~~Get all products created after a certain date~~
-       1. ~~use dateCreated.after(Date.now()) /.before to check wether date objects differ~~
-    8. Get all products modified after being created( dateCreated != dateLastModified)
+        1. ~~use dateCreated.after(Date.now()) /.before to check wether date objects differ~~
+    8. ~~Get all products modified after being created( dateCreated != dateLastModified)~~
 
 2. class Product
     1. Fields
-       1. ~~id(unique)~~
-           Use UUID.randomUUID()
-       2. ~~name~~
-       3. ~~category (enum of categories)~~
+        1. ~~id(unique)~~
+           ~~Use UUID.randomUUID()~~
+        2. ~~name~~
+        3. ~~category (enum of categories)~~
            Arrays.toString()
-       4. rating(1-10)
+        4. rating(1-10)
            ~~Use enum here too?~~
-       5. ~~date created~~
+        5. ~~date created~~
            new Date(); .after / before
-       6. ~~date last modified~~
+        6. ~~date last modified~~
 
     2. Has to be immutable.
         1. https://docs.oracle.com/javase/tutorial/essential/concurrency/imstrat.html

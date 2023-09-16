@@ -15,6 +15,7 @@ public class Warehouse {
 
     public Warehouse() {
     }
+
     public Warehouse(ArrayList<Product> storage) {
         this.storage = storage;
     }
@@ -45,7 +46,8 @@ public class Warehouse {
         getProduct(id).update(newName, newCategory, newRating);
 
     }
-    public List<Product> sortByName(){
+
+    public List<Product> sortByName() {
         return storage.stream().sorted(Comparator.comparing(Product::getName)).toList();
     }
 

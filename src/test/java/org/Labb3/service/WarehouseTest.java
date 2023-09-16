@@ -81,22 +81,24 @@ class WarehouseTest {
         assertEquals(id, product.getId(), "Product Id shouldn't change");
         assertNotEquals(product.getDateLastModified(), lastModified, "Should update last modified date");
     }
+
     @Test
-    void testSortingProductsByNamesAlphabetically(){
+    void testSortingProductsByNamesAlphabetically() {
 
         Warehouse warehouse = new Warehouse(FakeProducts.list());
-            List<Product> expected = warehouse.sortByName();
+        List<Product> expected = warehouse.sortByName();
 
-            List<Product> actual = FakeProducts.list().stream()
-                    .sorted(Comparator.comparing(Product::getName))
-                    .toList();
-            List<Product> notActual = FakeProducts.list();
+        List<Product> actual = FakeProducts.list().stream()
+                .sorted(Comparator.comparing(Product::getName))
+                .toList();
+        List<Product> notActual = FakeProducts.list();
 
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
         assertNotEquals(expected, notActual);
     }
+
     @Test
-    void testGettingAllProductsCreatedAfterACertainDate(){
+    void testGettingAllProductsCreatedAfterACertainDate() {
         Warehouse warehouse1 = new Warehouse();
         warehouse1.addNewProduct(new Product("Sauce_Stirrer", ProductCategory.WHISKS, 1, fixedDate3));
         warehouse1.addNewProduct(new Product("Cheese_Grater", ProductCategory.UTENSILS, 5, fixedDate2));
@@ -106,8 +108,9 @@ class WarehouseTest {
 
         assertThat(actual).allMatch(product1 -> product1.getDateCreated().isAfter(fixedDate2));
     }
+
     @Test
-    void testGettingAllModifiedAfterCreated(){
+    void testGettingAllModifiedAfterCreated() {
         Warehouse warehouse1 = new Warehouse();
 
         warehouse1.addNewProduct(new Product("Sauce_Stirrer", ProductCategory.WHISKS, 1, fixedDate3));
@@ -116,7 +119,7 @@ class WarehouseTest {
 
         UUID productOneId = warehouse1.getProducts().get(0).getId();
 
-        warehouse1.modifyProduct(productOneId,"Sauce_swirler",ProductCategory.WHISKS, 8);
+        warehouse1.modifyProduct(productOneId, "Sauce_swirler", ProductCategory.WHISKS, 8);
         List<Product> actual = warehouse1.getProductsModified();
 
         assertThat(warehouse1.getProducts()).contains(warehouse1.getProduct(productOneId));

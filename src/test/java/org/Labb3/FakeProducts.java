@@ -21,8 +21,8 @@ public class FakeProducts {
             new Product("FingerSnipper4K", ProductCategory.MANDOLINS, 8)
     ));
 
-     public static ArrayList<Product> list(){
-         return fakeProducts;
-     }
+    public static ArrayList<Product> list() {
+        return fakeProducts;
+    }
 
 }

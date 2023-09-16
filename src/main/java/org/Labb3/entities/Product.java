@@ -70,16 +70,19 @@ public class Product {
     public LocalDateTime getDateLastModified() {
         return dateLastModified;
     }
-    public Product update (String newName, ProductCategory newCategory, int newRating){
+
+    public Product update(String newName, ProductCategory newCategory, int newRating) {
         name = newName;
         category = newCategory;
         rating = newRating;
         dateLastModified = LocalDateTime.now();
         return this;
     }
-    public boolean isModified(){
+
+    public boolean isModified() {
         return !dateCreated.isEqual(dateLastModified);
     }
+
     @Override
     public String toString() {
         return "Product{" +
