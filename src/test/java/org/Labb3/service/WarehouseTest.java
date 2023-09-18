@@ -199,4 +199,28 @@ class WarehouseTest {
         assertThat(actual).contains(hotProduct);
         assertThat(actual).doesNotContain(oldHotProduct);
     }
+    @Test
+    void shouldSortDatesByMostRecent(){
+        Warehouse warehouse1 = new Warehouse(FakeProducts.list());
+        LocalDateTime today = fixedDate;
+
+        Product newProduct = new Product("New_product", ProductCategory.UTENSILS, 10, today.minusDays(5));
+        Product newProduct2 = new Product("New_product2", ProductCategory.TONGS, 10, today.minusDays(30));
+        Product newProduct3 = new Product("New_product3", ProductCategory.WHISKS, 10, today.minusDays(1));
+        Product newProduct4 = new Product("New_product4", ProductCategory.MANDOLINS, 9, today.minusDays(2));
+        warehouse1.addNewProduct(newProduct);
+        warehouse1.addNewProduct(newProduct2);
+        warehouse1.addNewProduct(newProduct3);
+        warehouse1.addNewProduct(newProduct4);
+
+        List<Product> actual = warehouse1.getNewTrendingProducts(fixedDate);
+        Comparator<Product> comparator = Comparator.comparing(Product::getDateCreated, Comparator.reverseOrder());
+
+        assertThat(actual).isNotNull();
+        assertThat(actual).contains(newProduct);
+        assertThat(actual).doesNotContain(newProduct2);
+        assertThat(actual).contains(newProduct3);
+        assertThat(actual).doesNotContain(newProduct4);
+        assertThat(actual).isSortedAccordingTo(comparator);
+    }
 }

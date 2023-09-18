@@ -93,7 +93,16 @@ public class Warehouse {
                 .filter(product -> product.getRating() == 10)
                 .filter(product -> product.getDateCreated().getMonth() == LocalDateTime.now().getMonth() &&
                         product.getDateCreated().getYear() == LocalDateTime.now().getYear())
+                .sorted(Comparator.comparing(Product::getDateCreated))
                 .collect(Collectors.toList());
         return result;
+    }
+    public List<Product> getNewTrendingProducts(LocalDateTime date) {
+        return storage.stream()
+                .filter(product -> product.getRating() == 10)
+                .filter(product -> product.getDateCreated().getMonth() == date.getMonth() &&
+                        product.getDateCreated().getYear() == date.getYear())
+                .sorted(Comparator.comparing(Product::getDateCreated).reversed())
+                .collect(Collectors.toList());
     }
 }
