@@ -158,4 +158,19 @@ class WarehouseTest {
         assertThat(expected).containsEntry(ProductCategory.UTENSILS, 3L);
 
     }
+    @Test
+    void shouldReturnAmountOfProducts_WhenGivenACategory(){
+        Warehouse warehouse1 = new Warehouse(FakeProducts.list());
+
+        String category = "WHISKS";
+        String category2 = "uTenSILS";
+        String category3 = "tongs";
+        Map<ProductCategory, Long> expected = warehouse1.getProductsPerCategory(category);
+        Map<ProductCategory, Long> expected2 = warehouse1.getProductsPerCategory(category2);
+        Map<ProductCategory, Long> expected3 = warehouse1.getProductsPerCategory(category3);
+
+        assertThat(expected).doesNotContainEntry(ProductCategory.WHISKS, 0L);
+        assertThat(expected2).containsEntry(ProductCategory.UTENSILS, 3L);
+        assertThat(expected3).containsEntry(ProductCategory.TONGS, 1L);
+    }
 }

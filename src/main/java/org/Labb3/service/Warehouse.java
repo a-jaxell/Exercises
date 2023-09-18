@@ -74,4 +74,9 @@ public class Warehouse {
         return storage.stream()
                 .collect(Collectors.groupingBy(Product::getCategory, Collectors.counting()));
     }
+    public Map<ProductCategory, Long> getProductsPerCategory(String category){
+        return storage.stream()
+                .filter(product -> product.getCategory().toString().equalsIgnoreCase(category))
+                .collect(Collectors.groupingBy(Product::getCategory, Collectors.counting()));
+    }
 }
