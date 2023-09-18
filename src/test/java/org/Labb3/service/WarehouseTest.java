@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.MapAssert.assertThatMap;
 import static org.junit.jupiter.api.Assertions.*;
 
 class WarehouseTest {
@@ -172,5 +173,15 @@ class WarehouseTest {
         assertThat(expected).doesNotContainEntry(ProductCategory.WHISKS, 0L);
         assertThat(expected2).containsEntry(ProductCategory.UTENSILS, 3L);
         assertThat(expected3).containsEntry(ProductCategory.TONGS, 1L);
+    }
+    @Test
+    void shouldReturnMapWithFirstLetterAsKeyAndNumberOfProducts_whenGivenListOfProducts(){
+        Warehouse warehouse1 = new Warehouse(FakeProducts.list());
+
+        Map actual = warehouse1.numberPerFirstLetter();
+
+        assertThatMap(actual).isNotNull();
+        assertThatMap(actual).isNotEmpty();
+        assertThatMap(actual).containsEntry("S",4L);
     }
 }

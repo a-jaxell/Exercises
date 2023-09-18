@@ -48,4 +48,7 @@ Extend functionality in warehouse for:
     If it returns false, return no such category. 
   * Map categories with .count() of products in that category
 * get a Map that has initial letters as key and amount of products as value
+  * Map on stream
+  * getName().substring(0,1) as key
+  * forEach + collect med Product::getname som metodreferens
 * get all products with max rating, created this month, and sorted by date descending.

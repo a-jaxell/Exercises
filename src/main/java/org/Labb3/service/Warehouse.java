@@ -5,6 +5,7 @@ import org.Labb3.entities.ProductCategory;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Warehouse {
@@ -78,5 +79,12 @@ public class Warehouse {
         return storage.stream()
                 .filter(product -> product.getCategory().toString().equalsIgnoreCase(category))
                 .collect(Collectors.groupingBy(Product::getCategory, Collectors.counting()));
+    }
+
+    public Map<String, Long> numberPerFirstLetter() {
+        return storage.stream()
+                .map(Product::getName)
+                .map(s -> s.substring(0,1))
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 }
