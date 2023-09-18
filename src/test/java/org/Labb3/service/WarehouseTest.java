@@ -184,4 +184,19 @@ class WarehouseTest {
         assertThatMap(actual).isNotEmpty();
         assertThatMap(actual).containsEntry("S",4L);
     }
+    @Test
+    void shouldReturnTrendingNewProducts_whenGivenListOfProducts(){
+        Warehouse warehouse1 = new Warehouse(FakeProducts.list());
+
+        Product hotProduct = new Product("New_Hot_product", ProductCategory.UTENSILS, 10);
+        Product oldHotProduct = new Product("Old_Hot_product", ProductCategory.TONGS, 10, fixedDate);
+        warehouse1.addNewProduct(hotProduct);
+        warehouse1.addNewProduct(oldHotProduct);
+
+        List<Product> actual = warehouse1.getNewTrendingProducts();
+
+        assertThat(actual).isNotNull();
+        assertThat(actual).contains(hotProduct);
+        assertThat(actual).doesNotContain(oldHotProduct);
+    }
 }

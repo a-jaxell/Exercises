@@ -87,4 +87,13 @@ public class Warehouse {
                 .map(s -> s.substring(0,1))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
+
+    public List<Product> getNewTrendingProducts() {
+        List<Product> result = storage.stream()
+                .filter(product -> product.getRating() == 10)
+                .filter(product -> product.getDateCreated().getMonth() == LocalDateTime.now().getMonth() &&
+                        product.getDateCreated().getYear() == LocalDateTime.now().getYear())
+                .collect(Collectors.toList());
+        return result;
+    }
 }
