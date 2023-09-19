@@ -3,7 +3,6 @@ package org.Labb3.entities;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ProductRecordTest {
 
@@ -12,7 +11,7 @@ class ProductRecordTest {
     @Test
     void shouldReturnNewRecordOfObject(){
 
-        ProductRecord actual = ProductRecord.returnProduct(product);
+        ProductRecord actual = ProductRecord.returnRecord(product);
 
         assertThat(actual).isNotNull();
         assertThat(actual.id()).isEqualTo(product.getId());

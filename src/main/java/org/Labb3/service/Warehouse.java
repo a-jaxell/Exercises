@@ -21,7 +21,7 @@ public class Warehouse {
     }
 
     public List<ProductRecord> getProducts() {
-        return storage.stream().map(ProductRecord::returnProduct).toList();
+        return storage.stream().map(ProductRecord::returnRecord).toList();
     }
 
     public void addNewProduct(Product product) {
@@ -39,7 +39,7 @@ public class Warehouse {
         if (result == null) {
             throw new NullPointerException("Error: Product Id does not exist");
         }
-        return ProductRecord.returnProduct(result);
+        return ProductRecord.returnRecord(result);
     }
 
     public void modifyProduct(UUID id, String newName, ProductCategory newCategory, int newRating) {
