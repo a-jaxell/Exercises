@@ -3,6 +3,8 @@ package org.Labb3.service;
 import org.Labb3.FakeProducts;
 import org.Labb3.entities.Product;
 import org.Labb3.entities.ProductCategory;
+import org.Labb3.entities.ProductRecord;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -57,7 +59,9 @@ class WarehouseTest {
     @Test
     void shouldGetAllProducts() {
         warehouse.addNewProduct(product);
-        List<Product> productList = warehouse.getProducts();
+        List<ProductRecord> productList = warehouse.getProducts();
+        assertThat(productList).isInstanceOf(List.class);
+        System.out.println(productList);
         assertEquals(productList.size(), 1, "Warehouse should contain one product");
         assertEquals(productList.get(0), product, "Warehouse should contain the added product");
     }
@@ -66,7 +70,7 @@ class WarehouseTest {
     void testGettingProductWithId_ShouldReturnProduct() {
         warehouse.addNewProduct(product);
         UUID id = product.getId();
-        Product actual = warehouse.getProduct(id);
+        ProductRecord actual = warehouse.getProduct(id);
         assertEquals(product, actual);
     }
 
@@ -135,7 +139,7 @@ class WarehouseTest {
         warehouse1.addNewProduct(new Product("Cheese_Grater", ProductCategory.UTENSILS, 5, fixedDate2));
         warehouse1.addNewProduct(new Product("Corn_Grabber", ProductCategory.TONGS, 2, fixedDate));
 
-        UUID productOneId = warehouse1.getProducts().get(0).getId();
+        UUID productOneId = warehouse1.getProducts().get(0).id();
 
         warehouse1.modifyProduct(productOneId, "Sauce_swirler", ProductCategory.WHISKS, 8);
         List<Product> actual = warehouse1.getProductsModified();

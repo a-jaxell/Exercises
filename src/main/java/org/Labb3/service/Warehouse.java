@@ -20,8 +20,8 @@ public class Warehouse {
         this.storage = storage;
     }
 
-    public ArrayList<Product> getProducts() {
-        return this.storage;
+    public List<ProductRecord> getProducts() {
+        return storage.stream().map(ProductRecord::returnProduct).toList();
     }
 
     public void addNewProduct(Product product) {
@@ -31,7 +31,7 @@ public class Warehouse {
         storage.add(product);
     }
 
-    public Product getProduct(UUID id) throws IllegalArgumentException, NullPointerException {
+    public ProductRecord getProduct(UUID id) throws IllegalArgumentException, NullPointerException {
         Product result = storage.stream()
                 .filter(o -> o.getId() == id)
                 .findFirst()
@@ -39,12 +39,24 @@ public class Warehouse {
         if (result == null) {
             throw new NullPointerException("Error: Product Id does not exist");
         }
-        return result;
+        return ProductRecord.returnProduct(result);
     }
 
     public void modifyProduct(UUID id, String newName, ProductCategory newCategory, int newRating) {
-        getProduct(id).update(newName, newCategory, newRating);
+        Optional<Product> productToModify = findProduct(id);
 
+        if (productToModify.isPresent()) {
+            productToModify.ifPresent(product -> {
+                product.setName(newName);
+                product.setCategory(newCategory);
+                product.setRating(newRating);
+            });
+        }
+    }
+    private Optional<Product> findProduct(UUID id) {
+        return storage.stream()
+                .filter(product -> product.getId() == id)
+                .findFirst();
     }
 
     public List<Product> sortByName() {
@@ -90,13 +102,12 @@ public class Warehouse {
     }
 
     public List<Product> getNewTrendingProducts() {
-        List<Product> result = storage.stream()
+        return storage.stream()
                 .filter(product -> product.getRating() == 10)
                 .filter(product -> product.getDateCreated().getMonth() == LocalDateTime.now().getMonth() &&
                         product.getDateCreated().getYear() == LocalDateTime.now().getYear())
                 .sorted(Comparator.comparing(Product::getDateCreated))
                 .collect(Collectors.toList());
-        return result;
     }
     public List<Product> getNewTrendingProducts(LocalDateTime date) {
         return storage.stream()
