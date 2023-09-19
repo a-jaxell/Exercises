@@ -47,9 +47,7 @@ public class Warehouse {
 
         if (productToModify.isPresent()) {
             productToModify.ifPresent(product -> {
-                product.setName(newName);
-                product.setCategory(newCategory);
-                product.setRating(newRating);
+                product.update(newName, newCategory, newRating);
             });
         }
     }

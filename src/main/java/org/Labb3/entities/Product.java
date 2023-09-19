@@ -71,12 +71,11 @@ public class Product {
         return dateLastModified;
     }
 
-    public Product update(String newName, ProductCategory newCategory, int newRating) {
+    public void update(String newName, ProductCategory newCategory, int newRating) {
         name = newName;
         category = newCategory;
         rating = newRating;
         dateLastModified = LocalDateTime.now();
-        return this;
     }
 
     public boolean isModified() {
