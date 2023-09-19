@@ -57,8 +57,8 @@ public class Warehouse {
                 .findFirst();
     }
 
-    public List<Product> sortByName() {
-        return storage.stream().sorted(Comparator.comparing(Product::getName)).toList();
+    public List<ProductRecord> sortByName() {
+        return getProducts().stream().sorted(Comparator.comparing(ProductRecord::name)).toList();
     }
 
     public List<Product> getProductsCreatedAfter(LocalDateTime date) {

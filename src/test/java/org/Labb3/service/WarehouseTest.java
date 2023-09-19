@@ -108,12 +108,12 @@ class WarehouseTest {
     void testSortingProductsAlphabetically_ShouldSucceed() {
 
         Warehouse warehouse = new Warehouse(FakeProducts.list());
-        List<Product> expected = warehouse.sortByName();
+        List<ProductRecord> expected = warehouse.sortByName();
 
-        List<Product> actual = FakeProducts.list().stream()
-                .sorted(Comparator.comparing(Product::getName))
+        List<ProductRecord> actual = warehouse.getProducts().stream()
+                .sorted(Comparator.comparing(ProductRecord::name))
                 .toList();
-        List<Product> notActual = FakeProducts.list();
+        List<ProductRecord> notActual = warehouse.getProducts();
 
         assertEquals(expected, actual, "Products should sort alphabetically(a-z)");
         assertNotEquals(expected, notActual);
