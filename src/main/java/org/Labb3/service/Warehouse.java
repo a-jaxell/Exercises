@@ -2,6 +2,7 @@ package org.Labb3.service;
 
 import org.Labb3.entities.Product;
 import org.Labb3.entities.ProductCategory;
+import org.Labb3.entities.ProductRecord;
 
 import java.time.LocalDateTime;
 import java.util.*;
