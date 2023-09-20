@@ -2,6 +2,7 @@ package org.Labb3;
 
 import org.Labb3.entities.Product;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -10,10 +11,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProductTest {
-    static Product product;
+    private Product product;
 
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+     void setUp() {
         product = new Product("Santoku 17cm", CHEF_KNIVES, 5);
     }
 

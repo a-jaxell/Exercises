@@ -7,6 +7,7 @@ import org.Labb3.entities.ProductRecord;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Warehouse {
@@ -24,10 +25,10 @@ public class Warehouse {
         return storage.stream().map(ProductRecord::returnRecord).toList();
     }
 
-    public void addNewProduct(Product product) {
-        if (product == null) {
-            throw new IllegalArgumentException("Input cannot be null");
-        }
+    public void addNewProduct(String name, ProductCategory category, int rating) {
+        storage.add(new Product(name, category, rating));
+    }
+    public void addNewProduct(Product product){
         storage.add(product);
     }
 
@@ -61,21 +62,22 @@ public class Warehouse {
         return getProducts().stream().sorted(Comparator.comparing(ProductRecord::name)).toList();
     }
 
-    public List<Product> getProductsCreatedAfter(LocalDateTime date) {
-        return storage.stream()
-                .filter(product -> product.getDateCreated().isAfter(date))
+    public List<ProductRecord> getProductsCreatedAfter(LocalDateTime date) {
+        return getProducts().stream()
+                .filter(productRecord -> productRecord.dateCreated().isAfter(date))
                 .toList();
     }
 
-    public List<Product> getProductsModified() {
-        return storage.stream()
-                .filter(Product::isModified)
+    public List<ProductRecord> getProductsModified() {
+        Predicate<ProductRecord> isModified = productRecord -> !productRecord.dateCreated().isEqual(productRecord.dateModified());
+        return getProducts().stream()
+                .filter(isModified)
                 .toList();
     }
     public List<ProductCategory> getPopulatedCategories() {
         // Map each category with products
-        Map<ProductCategory, List<Product>> categoriesWithProducts = storage.stream()
-                .collect(Collectors.groupingBy(Product::getCategory));
+        Map<ProductCategory, List<ProductRecord>> categoriesWithProducts = getProducts().stream()
+                .collect(Collectors.groupingBy(ProductRecord::category));
         //Filter out all categories that are empty(have no products)
         return categoriesWithProducts.entrySet().stream()
                 .filter(entry -> !entry.getValue().isEmpty())
@@ -83,36 +85,36 @@ public class Warehouse {
                 .toList();
     }
     public Map<ProductCategory, Long> getProductsPerCategory(){
-        return storage.stream()
-                .collect(Collectors.groupingBy(Product::getCategory, Collectors.counting()));
+        return getProducts().stream()
+                .collect(Collectors.groupingBy(ProductRecord::category, Collectors.counting()));
     }
     public Map<ProductCategory, Long> getProductsPerCategory(String category){
-        return storage.stream()
-                .filter(product -> product.getCategory().toString().equalsIgnoreCase(category))
-                .collect(Collectors.groupingBy(Product::getCategory, Collectors.counting()));
+        return getProducts().stream()
+                .filter(productRecord -> productRecord.category().toString().equalsIgnoreCase(category))
+                .collect(Collectors.groupingBy(ProductRecord::category, Collectors.counting()));
     }
 
     public Map<String, Long> numberPerFirstLetter() {
-        return storage.stream()
-                .map(Product::getName)
+        return getProducts().stream()
+                .map(ProductRecord::name)
                 .map(s -> s.substring(0,1))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 
-    public List<Product> getNewTrendingProducts() {
-        return storage.stream()
-                .filter(product -> product.getRating() == 10)
-                .filter(product -> product.getDateCreated().getMonth() == LocalDateTime.now().getMonth() &&
-                        product.getDateCreated().getYear() == LocalDateTime.now().getYear())
-                .sorted(Comparator.comparing(Product::getDateCreated))
+    public List<ProductRecord> getNewTrendingProducts() {
+        return getProducts().stream()
+                .filter(productRecord -> productRecord.rating() == 10)
+                .filter(productRecord -> productRecord.dateCreated().getMonth() == LocalDateTime.now().getMonth() &&
+                        productRecord.dateCreated().getYear() == LocalDateTime.now().getYear())
+                .sorted(Comparator.comparing(ProductRecord::dateCreated))
                 .collect(Collectors.toList());
     }
-    public List<Product> getNewTrendingProducts(LocalDateTime date) {
-        return storage.stream()
-                .filter(product -> product.getRating() == 10)
-                .filter(product -> product.getDateCreated().getMonth() == date.getMonth() &&
-                        product.getDateCreated().getYear() == date.getYear())
-                .sorted(Comparator.comparing(Product::getDateCreated).reversed())
+    public List<ProductRecord> getNewTrendingProducts(LocalDateTime date) {
+        return getProducts().stream()
+                .filter(productRecord -> productRecord.rating() == 10)
+                .filter(productRecord -> productRecord.dateCreated().getMonth() == date.getMonth() &&
+                        productRecord.dateCreated().getYear() == date.getYear())
+                .sorted(Comparator.comparing(ProductRecord::dateCreated).reversed())
                 .collect(Collectors.toList());
     }
 }

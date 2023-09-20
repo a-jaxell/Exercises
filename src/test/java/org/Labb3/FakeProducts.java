@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class FakeProducts {
 
-    public static ArrayList<Product> fakeProducts = new ArrayList<>(Arrays.asList(
+    public ArrayList<Product> fakeProducts = new ArrayList<>(Arrays.asList(
             new Product("Microplane", ProductCategory.UTENSILS, 4),
             new Product("Global_20_cm", ProductCategory.CHEF_KNIVES, 2),
             new Product("Slickepott_L", ProductCategory.SPATULAS, 4),
@@ -21,7 +21,7 @@ public class FakeProducts {
             new Product("FingerSnipper4K", ProductCategory.MANDOLINS, 8)
     ));
 
-    public static ArrayList<Product> list() {
+    public  ArrayList<Product> list() {
         return fakeProducts;
     }
 
