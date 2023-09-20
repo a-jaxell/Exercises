@@ -1,4 +1,4 @@
-package org.Labb3;
+package org.Labb3.entities;
 
 import org.Labb3.entities.Product;
 import org.junit.jupiter.api.BeforeAll;
