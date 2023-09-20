@@ -30,18 +30,19 @@ class WarehouseTest {
     private LocalDateTime fixedDate3;
 
     @BeforeEach
-     void setUp(){
-            Clock clock = Clock.fixed(Instant.ofEpochSecond(1631510400, 1000L), ZoneId.of("UTC"));
-            Clock clock2 = Clock.fixed(Instant.ofEpochSecond(1633504400, 1000L), ZoneId.of("UTC"));
-            Clock clock3 = Clock.fixed(Instant.ofEpochSecond(1637524400, 1000L), ZoneId.of("UTC"));
+    void setUp() {
+        Clock clock = Clock.fixed(Instant.ofEpochSecond(1631510400, 1000L), ZoneId.of("UTC"));
+        Clock clock2 = Clock.fixed(Instant.ofEpochSecond(1633504400, 1000L), ZoneId.of("UTC"));
+        Clock clock3 = Clock.fixed(Instant.ofEpochSecond(1637524400, 1000L), ZoneId.of("UTC"));
 
-            fixedDate = LocalDateTime.now(clock);
-            fixedDate2 = LocalDateTime.now(clock2);
-            fixedDate3 = LocalDateTime.now(clock3);
-            product = new Product("Microplane", ProductCategory.UTENSILS, 5);
-            warehouse = new Warehouse();
-            filledWarehouse = new Warehouse( new FakeProducts().list());
+        fixedDate = LocalDateTime.now(clock);
+        fixedDate2 = LocalDateTime.now(clock2);
+        fixedDate3 = LocalDateTime.now(clock3);
+        product = new Product("Microplane", ProductCategory.UTENSILS, 5);
+        warehouse = new Warehouse();
+        filledWarehouse = new Warehouse(new FakeProducts().list());
     }
+
     @Test
     void shouldAddNewProductToWarehouse() {
         assertThat(warehouse.getProducts()).isNullOrEmpty();
@@ -142,21 +143,23 @@ class WarehouseTest {
     }
 
     @Test
-    void shouldReturnAllCategoriesWithMinimumOneProduct(){
+    void shouldReturnAllCategoriesWithMinimumOneProduct() {
 
         List<ProductCategory> expected = filledWarehouse.getPopulatedCategories();
         assertThat(ProductCategory.WHISKS).isNotIn(expected);
     }
+
     @Test
-    void shouldReturnAmountOfProductsForGivenCategory(){
+    void shouldReturnAmountOfProductsForGivenCategory() {
 
         Map<ProductCategory, Long> expected = filledWarehouse.getProductsPerCategory();
         assertThat(expected).doesNotContainEntry(ProductCategory.WHISKS, 0L);
         assertThat(expected).containsEntry(ProductCategory.UTENSILS, 3L);
 
     }
+
     @Test
-    void shouldReturnAmountOfProducts_WhenGivenACategory(){
+    void shouldReturnAmountOfProducts_WhenGivenACategory() {
         String category = "WHISKS";
         String category2 = "uTenSILS";
         String category3 = "tongs";
@@ -168,17 +171,19 @@ class WarehouseTest {
         assertThat(expected2).containsEntry(ProductCategory.UTENSILS, 3L);
         assertThat(expected3).containsEntry(ProductCategory.TONGS, 1L);
     }
+
     @Test
-    void shouldReturnMapWithFirstLetterAsKeyAndNumberOfProducts_whenGivenListOfProducts(){
+    void shouldReturnMapWithFirstLetterAsKeyAndNumberOfProducts_whenGivenListOfProducts() {
 
         Map<String, Long> actual = filledWarehouse.numberPerFirstLetter();
 
         assertThatMap(actual).isNotNull();
         assertThatMap(actual).isNotEmpty();
-        assertThatMap(actual).containsEntry("S",4L);
+        assertThatMap(actual).containsEntry("S", 4L);
     }
+
     @Test
-    void shouldReturnTrendingNewProducts_whenGivenListOfProducts(){
+    void shouldReturnTrendingNewProducts_whenGivenListOfProducts() {
         Product hotProduct = new Product("New_Hot_product", ProductCategory.UTENSILS, 10);
         Product oldHotProduct = new Product("Old_Hot_product", ProductCategory.TONGS, 10, fixedDate);
         filledWarehouse.addNewProduct(hotProduct);
@@ -192,7 +197,7 @@ class WarehouseTest {
     }
 
     @Test
-    void shouldSortDatesByMostRecent(){
+    void shouldSortDatesByMostRecent() {
 
         LocalDateTime today = fixedDate;
 

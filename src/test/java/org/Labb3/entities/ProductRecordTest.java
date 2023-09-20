@@ -8,13 +8,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class ProductRecordTest {
 
     private Product productForRecord;
+
     @BeforeEach
     void setUp() {
         productForRecord = new Product("Microplane", ProductCategory.UTENSILS, 5);
     }
 
     @Test
-    void shouldReturnNewRecordOfObject(){
+    void shouldReturnNewRecordOfObject() {
 
         ProductRecord actual = ProductRecord.returnRecord(productForRecord);
 

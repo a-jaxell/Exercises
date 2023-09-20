@@ -28,7 +28,8 @@ public class Warehouse {
     public void addNewProduct(String name, ProductCategory category, int rating) {
         storage.add(new Product(name, category, rating));
     }
-    public void addNewProduct(Product product){
+
+    public void addNewProduct(Product product) {
         storage.add(product);
     }
 
@@ -50,6 +51,7 @@ public class Warehouse {
             productToModify.ifPresent(product -> product.update(newName, newCategory, newRating));
         }
     }
+
     private Optional<Product> findProduct(UUID id) {
         return storage.stream()
                 .filter(product -> product.getId() == id)
@@ -72,6 +74,7 @@ public class Warehouse {
                 .filter(isModified)
                 .toList();
     }
+
     public List<ProductCategory> getPopulatedCategories() {
         // Map each category with products
         Map<ProductCategory, List<ProductRecord>> categoriesWithProducts = getProducts().stream()
@@ -82,11 +85,13 @@ public class Warehouse {
                 .map(Map.Entry::getKey)
                 .toList();
     }
-    public Map<ProductCategory, Long> getProductsPerCategory(){
+
+    public Map<ProductCategory, Long> getProductsPerCategory() {
         return getProducts().stream()
                 .collect(Collectors.groupingBy(ProductRecord::category, Collectors.counting()));
     }
-    public Map<ProductCategory, Long> getProductsPerCategory(String category){
+
+    public Map<ProductCategory, Long> getProductsPerCategory(String category) {
         return getProducts().stream()
                 .filter(productRecord -> productRecord.category().toString().equalsIgnoreCase(category))
                 .collect(Collectors.groupingBy(ProductRecord::category, Collectors.counting()));
@@ -95,7 +100,7 @@ public class Warehouse {
     public Map<String, Long> numberPerFirstLetter() {
         return getProducts().stream()
                 .map(ProductRecord::name)
-                .map(s -> s.substring(0,1))
+                .map(s -> s.substring(0, 1))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 
@@ -107,6 +112,7 @@ public class Warehouse {
                 .sorted(Comparator.comparing(ProductRecord::dateCreated))
                 .collect(Collectors.toList());
     }
+
     public List<ProductRecord> getNewTrendingProducts(LocalDateTime date) {
         return getProducts().stream()
                 .filter(productRecord -> productRecord.rating() == 10)

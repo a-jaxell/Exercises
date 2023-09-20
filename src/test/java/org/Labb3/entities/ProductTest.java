@@ -1,7 +1,5 @@
 package org.Labb3.entities;
 
-import org.Labb3.entities.Product;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +12,7 @@ class ProductTest {
     private Product product;
 
     @BeforeEach
-     void setUp() {
+    void setUp() {
         product = new Product("Santoku 17cm", CHEF_KNIVES, 5);
     }
 

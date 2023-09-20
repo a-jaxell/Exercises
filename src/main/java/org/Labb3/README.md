@@ -43,14 +43,14 @@ Extend functionality in warehouse for:
 * ~~get all categories that have 1 products linked~~
     * use streams to filter on product category and return them as a list
 * ~~get all products in a category~~
-  * Create function to check enum if an input string is a part of it, have it return boolean
-    implement that function in a method on Warehouse to return amount of products in the given enum
-    If it returns false, return no such category. 
-  * Map categories with .count() of products in that category
+    * Create function to check enum if an input string is a part of it, have it return boolean
+      implement that function in a method on Warehouse to return amount of products in the given enum
+      If it returns false, return no such category.
+    * Map categories with .count() of products in that category
 * ~~get a Map that has initial letters as key and amount of products as value~~
-  * Map on stream
-  * ~~getName().substring(0,1) as key~~
-  * ~~forEach + collect med Product::getname som metodreferens~~
+    * Map on stream
+    * ~~getName().substring(0,1) as key~~
+    * ~~forEach + collect med Product::getname som metodreferens~~
 * ~~get all products with max rating, created this month, and sorted by date descending.~~
 
 Refactoring
