@@ -4,7 +4,6 @@ import org.Labb3.FakeProducts;
 import org.Labb3.entities.Product;
 import org.Labb3.entities.ProductCategory;
 import org.Labb3.entities.ProductRecord;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -43,12 +42,6 @@ class WarehouseTest {
             warehouse = new Warehouse();
             filledWarehouse = new Warehouse( new FakeProducts().list());
     }
-    @AfterEach
-    void tearDown() {
-        warehouse = null;
-        filledWarehouse = null;
-        product = null;
-    }
     @Test
     void shouldAddNewProductToWarehouse() {
         assertThat(warehouse.getProducts()).isNullOrEmpty();
@@ -62,7 +55,7 @@ class WarehouseTest {
         List<ProductRecord> productList = warehouse.getProducts();
         assertThat(productList).isInstanceOf(List.class);
         assertEquals(productList.size(), 1, "Warehouse should contain one product");
-        assertNotEquals(productList.get(0), product, "Warehouse should contain the added product");
+        assertEquals(productList.get(0).id(), product.getId(), "Warehouse should contain the added product");
     }
 
     @Test
