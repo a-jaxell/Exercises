@@ -47,9 +47,7 @@ public class Warehouse {
         Optional<Product> productToModify = findProduct(id);
 
         if (productToModify.isPresent()) {
-            productToModify.ifPresent(product -> {
-                product.update(newName, newCategory, newRating);
-            });
+            productToModify.ifPresent(product -> product.update(newName, newCategory, newRating));
         }
     }
     private Optional<Product> findProduct(UUID id) {
