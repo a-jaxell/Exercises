@@ -9,7 +9,7 @@ public class PurchaseTest {
         Product decorateMagazine = new Product("Decor Monthly", 52.75 , 5);
         Product comboDiscount = new Product("Milky milk milk", 7.0 , 10);
 
-        Discount discount = new MilkDiscount(new EmptyDiscount());
+        Discount discount = new QuantityDiscount(new FridayDiscount(new MilkDiscount(new EmptyDiscount())));
 
         System.out.println(discount.apply(wholeMilk));
         System.out.println(discount.getDescription(wholeMilk));

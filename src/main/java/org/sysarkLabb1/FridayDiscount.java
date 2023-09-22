@@ -2,25 +2,25 @@ package org.sysarkLabb1;
 
 import org.sysarkLabb1.entities.Product;
 
-public class MilkDiscount extends BaseDiscount{
+import java.time.LocalDateTime;
+
+public class FridayDiscount extends BaseDiscount{
     private final Discount nextDiscount;
-    public MilkDiscount(Discount discount) {
+    public FridayDiscount(Discount discount) {
         this.nextDiscount = discount;
     }
 
     @Override
     public String getDescription(Product product){
-        String desc = isApplicable(product) ? "10 % on milk": "";
+        String desc = isApplicable(product) ? "10 % on Fridays!": "";
         return nextDiscount.getDescription(product) + " " + desc;
     }
     @Override
     protected boolean isApplicable(Product product) {
-        return product.name().toLowerCase().contains("milk");
+        return LocalDateTime.now().getDayOfWeek().toString().equals("FRIDAY");
     }
-
     @Override
     public double calculateDiscount(Product product) {
-        double discount = isApplicable(product) ? product.price()* product.quantity()* 0.10 : 0;
-        return discount;
+            return isApplicable(product) ? nextDiscount.apply(product) + (product.price()* product.quantity()* 0.10) : nextDiscount.apply(product)+ 0;
     }
 }
