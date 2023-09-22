@@ -1,14 +1,15 @@
 package org.sysarkLabb1.Pizza;
 
-public class Broccoli extends PizzaDecorator{
+public class Broccoli extends PizzaDecorator {
 
     private final Pizza pizza;
 
     public Broccoli(Pizza pizza) {
         this.pizza = pizza;
     }
+
     @Override
-    public String getDesc(){
+    public String getDesc() {
         return pizza.getDesc() + ", Broccoli(9.25)";
     }
 

@@ -1,6 +1,6 @@
 package org.sysarkLabb1.Pizza;
 
-public class SimplyVegPizza implements Pizza{
+public class SimplyVegPizza implements Pizza {
     @Override
     public String getDesc() {
         return "SimplyVegPizza(230)";
