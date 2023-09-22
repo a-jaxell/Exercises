@@ -1,4 +1,4 @@
-package org.sysarkLabb1;
+package org.sysarkLabb1.Discounts;
 
 import org.sysarkLabb1.entities.Product;
 

@@ -1,5 +1,7 @@
 package org.sysarkLabb1;
 
+import org.sysarkLabb1.Discounts.*;
+import org.sysarkLabb1.GeneralDiscount.GeneralDiscount;
 import org.sysarkLabb1.entities.Product;
 
 public class PurchaseTest {
