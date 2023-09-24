@@ -18,15 +18,18 @@ public class PurchaseTest {
         System.out.println(discount1.apply(generalDiscount));
         System.out.println(discount1.getDescription(generalDiscount));
 
-        /*
+
         System.out.println(discount.apply(wholeMilk));
         System.out.println(discount.getDescription(wholeMilk));
+
         System.out.println(discount.apply(concreteBlock));
         System.out.println(discount.getDescription(concreteBlock));
+
         System.out.println(discount.apply(decorateMagazine));
         System.out.println(discount.getDescription(decorateMagazine));
+
         System.out.println(discount.apply(comboDiscount));
         System.out.println(discount.getDescription(comboDiscount));
-         */
+
     }
 }
