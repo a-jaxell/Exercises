@@ -13,7 +13,7 @@ public class PurchaseTest {
         Product generalDiscount = new Product("Finest dirt", 1000, 1);
 
         Discount discount = new QuantityDiscount(new FridayDiscount(new MilkDiscount(new EmptyDiscount())));
-        Discount discount1 = new FridayDiscount(new GeneralDiscount(new EmptyDiscount(), (product) -> product.price() > 100, product -> product.price()* 0.80,"20% off on items above 100kr"));
+        Discount discount1 = new FridayDiscount(new GeneralDiscount(new EmptyDiscount(), (product) -> product.price() > 100, product -> product.price() * 0.80, "20% off on items above 100kr"));
 
         System.out.println(discount1.apply(generalDiscount));
         System.out.println(discount1.getDescription(generalDiscount));

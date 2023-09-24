@@ -5,21 +5,20 @@ import org.junit.jupiter.api.Test;
 import org.sysarkLabb1.Discounts.Discount;
 import org.sysarkLabb1.entities.Product;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class GeneralDiscountTest {
     @BeforeEach
-    void setUp(){
+    void setUp() {
 
         CalculateDiscount calculateDiscount = product -> product.price() * 0.8;
 
     }
 
     @Test
-    void whenGeneralDiscountAppliesDiscount_shouldReturnSumOfAllInChain(){
+    void whenGeneralDiscountAppliesDiscount_shouldReturnSumOfAllInChain() {
 
         Discount nextDiscount = mock(Discount.class);
         Product product = mock(Product.class);
@@ -31,8 +30,9 @@ class GeneralDiscountTest {
         assertEquals(15.0, actual);
 
     }
+
     @Test
-    void whenGeneralDiscountGetsDescription_shouldConcatAllInChain(){
+    void whenGeneralDiscountGetsDescription_shouldConcatAllInChain() {
         Discount nextDiscount = mock(Discount.class);
         Product product = mock(Product.class);
 
@@ -43,12 +43,13 @@ class GeneralDiscountTest {
         String expected = "Previous description Description";
         assertEquals(expected, actual);
     }
+
     @Test
-    void whenLambdaIsAssignedToIsApplicable_itShouldReturnBoolean(){
+    void whenLambdaIsAssignedToIsApplicable_itShouldReturnBoolean() {
 
         Product product = mock(Product.class);
-        IsApplicable lambdaTrue = (p)-> product.name().equals("True");
-        IsApplicable lambdaFalse = (p)-> product.name().equals("False");
+        IsApplicable lambdaTrue = (p) -> product.name().equals("True");
+        IsApplicable lambdaFalse = (p) -> product.name().equals("False");
 
         when(product.name()).thenReturn("True");
 
@@ -56,8 +57,9 @@ class GeneralDiscountTest {
         assertFalse(lambdaFalse.isApplicable(product));
 
     }
+
     @Test
-    void whenLambdaIsAssignedToCalculateDiscount_itShouldReturnDouble(){
+    void whenLambdaIsAssignedToCalculateDiscount_itShouldReturnDouble() {
         Product product = mock(Product.class);
 
         CalculateDiscount lambdaNoDiscount = (p) -> product.price();
