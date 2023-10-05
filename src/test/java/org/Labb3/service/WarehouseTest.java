@@ -18,6 +18,7 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.MapAssert.assertThatMap;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -77,9 +78,15 @@ class WarehouseTest {
     void testGettingProductWithWrongId_ShouldThrowException() {
         UUID id = product.getId();
         UUID wrongId = UUID.randomUUID();
-        assertEquals(id.getClass(), wrongId.getClass());
-        assertNotSame(id, wrongId);
-        assertThrows(NullPointerException.class, () -> warehouse.getProduct(wrongId));
+
+        assertThat(id)
+                .isInstanceOf(UUID.class)
+                .extracting(UUID::getClass)
+                .isEqualTo(wrongId.getClass())
+                .isNotEqualTo(wrongId);
+
+        assertThatThrownBy(() -> warehouse.getProduct(wrongId))
+                .isInstanceOf(NullPointerException.class);
     }
 
     @Test
