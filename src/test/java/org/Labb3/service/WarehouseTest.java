@@ -120,8 +120,9 @@ class WarehouseTest {
                 .toList();
         List<ProductRecord> notActual = filledWarehouse.getProducts();
 
-        assertEquals(expected, actual, "Products should sort alphabetically(a-z)");
-        assertNotEquals(expected, notActual);
+        assertThat(expected)
+                .isEqualTo(actual)
+                .isNotEqualTo(notActual);
     }
 
     @Test
