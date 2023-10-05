@@ -153,8 +153,9 @@ class WarehouseTest {
     void shouldReturnAmountOfProductsForGivenCategory() {
 
         Map<ProductCategory, Long> expected = filledWarehouse.getProductsPerCategory();
-        assertThat(expected).doesNotContainEntry(ProductCategory.WHISKS, 0L);
-        assertThat(expected).containsEntry(ProductCategory.UTENSILS, 3L);
+        assertThat(expected)
+                .doesNotContainEntry(ProductCategory.WHISKS, 0L)
+                .containsEntry(ProductCategory.UTENSILS, 3L);
 
     }
 
@@ -177,9 +178,10 @@ class WarehouseTest {
 
         Map<String, Long> actual = filledWarehouse.numberPerFirstLetter();
 
-        assertThatMap(actual).isNotNull();
-        assertThatMap(actual).isNotEmpty();
-        assertThatMap(actual).containsEntry("S", 4L);
+        assertThatMap(actual)
+                .isNotNull()
+                .isNotEmpty()
+                .containsEntry("S", 4L);
     }
 
     @Test
@@ -191,9 +193,10 @@ class WarehouseTest {
 
         List<ProductRecord> actual = filledWarehouse.getNewTrendingProducts();
 
-        assertThat(actual).isNotNull();
-        assertThat(actual).contains(ProductRecord.returnRecord(hotProduct));
-        assertThat(actual).doesNotContain(ProductRecord.returnRecord(oldHotProduct));
+        assertThat(actual)
+                .isNotNull()
+                .contains(ProductRecord.returnRecord(hotProduct))
+                .doesNotContain(ProductRecord.returnRecord(oldHotProduct));
     }
 
     @Test
@@ -213,11 +216,12 @@ class WarehouseTest {
         List<ProductRecord> actual = filledWarehouse.getNewTrendingProducts(fixedDate);
         Comparator<ProductRecord> comparator = Comparator.comparing(ProductRecord::dateCreated, Comparator.reverseOrder());
 
-        assertThat(actual).isNotNull();
-        assertThat(actual).contains(ProductRecord.returnRecord(newProduct));
-        assertThat(actual).doesNotContain(ProductRecord.returnRecord(newProduct2));
-        assertThat(actual).contains(ProductRecord.returnRecord(newProduct3));
-        assertThat(actual).doesNotContain(ProductRecord.returnRecord(newProduct4));
-        assertThat(actual).isSortedAccordingTo(comparator);
+        assertThat(actual)
+                .isNotNull()
+                .contains(ProductRecord.returnRecord(newProduct))
+                .doesNotContain(ProductRecord.returnRecord(newProduct2))
+                .contains(ProductRecord.returnRecord(newProduct3))
+                .doesNotContain(ProductRecord.returnRecord(newProduct4))
+                .isSortedAccordingTo(comparator);
     }
 }
