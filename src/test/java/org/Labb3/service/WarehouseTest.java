@@ -67,8 +67,10 @@ class WarehouseTest {
         warehouse.addNewProduct(product);
         UUID id = product.getId();
         ProductRecord actual = warehouse.getProduct(id);
-        assertEquals(product.getId().toString(), actual.id().toString());
-        assertThat(product.toString()).isNotEqualTo(actual.toString());
+        assertThat(product)
+                .isNotEqualTo(actual)
+                .extracting(Product::getId)
+                .isEqualTo(actual.id());
     }
 
     @Test
