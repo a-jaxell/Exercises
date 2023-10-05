@@ -54,9 +54,12 @@ class WarehouseTest {
     void shouldGetAllProducts() {
         warehouse.addNewProduct(product);
         List<ProductRecord> productList = warehouse.getProducts();
-        assertThat(productList).isInstanceOf(List.class);
-        assertEquals(productList.size(), 1, "Warehouse should contain one product");
-        assertEquals(productList.get(0).id(), product.getId(), "Warehouse should contain the added product");
+        assertThat(productList)
+                .isInstanceOf(List.class)
+                .hasSize(1)
+                .extracting(ProductRecord::id)
+                .contains(product.getId());
+
     }
 
     @Test
