@@ -1,6 +1,7 @@
 package org.Labb3.entities;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 public class Product {
@@ -22,8 +23,18 @@ public class Product {
         this.dateLastModified = date;
     }
 
+    // Only for testing
     public Product(String name, ProductCategory category, int rating, LocalDateTime dateCreated) {
         this.id = UUID.randomUUID();
+        this.name = name;
+        this.rating = rating;
+        this.category = category;
+        this.dateCreated = dateCreated;
+        this.dateLastModified = dateCreated;
+    }
+    // Only for testing
+    public Product(UUID id, String name, ProductCategory category, int rating, LocalDateTime dateCreated) {
+        this.id = id;
         this.name = name;
         this.rating = rating;
         this.category = category;
@@ -75,7 +86,7 @@ public class Product {
         name = newName;
         category = newCategory;
         rating = newRating;
-        dateLastModified = LocalDateTime.now();
+        dateLastModified = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     }
 
     public boolean isModified() {

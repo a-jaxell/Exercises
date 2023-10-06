@@ -11,6 +11,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -92,22 +93,21 @@ class WarehouseTest {
     @Test
     void testModifyingProduct_ShouldSucceed() throws InterruptedException {
         //Calling alternate constructor for ability to set a fixed date.
-        Product product = new Product("Cheese_Grater", ProductCategory.UTENSILS, 5, fixedDate);
+
+        UUID id = UUID.randomUUID();
+        Product product = new Product(id,"Cheese_Grater", ProductCategory.UTENSILS, 5, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        Product resultProduct = new Product(id,"Cheese_Slicer", ProductCategory.CHEF_KNIVES, 1, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        ProductRecord expected =  ProductRecord.returnRecord(resultProduct);
+
         warehouse.addNewProduct(product);
+        warehouse.modifyProduct(id, "Cheese_Slicer", ProductCategory.CHEF_KNIVES, 1);
 
+        ProductRecord modifiedProduct = warehouse.getProduct(id);
 
-        String newName = "Cheese_Slicer";
-        int newRating = 1;
-        ProductCategory newCategory = ProductCategory.CHEF_KNIVES;
-        UUID id = product.getId();
-        LocalDateTime lastModified = product.getDateLastModified();
-        warehouse.modifyProduct(id, newName, newCategory, newRating);
+        assertThat(modifiedProduct)
+                .isNotNull()
+                .isEqualTo(expected);
 
-        assertEquals(newRating, product.getRating(), "Should recieve the new rating");
-        assertEquals(newName, product.getName(), "Should recieve the new name");
-        assertEquals(newCategory, product.getCategory(), "Should recieve the new category");
-        assertEquals(id, product.getId(), "Product Id shouldn't change");
-        assertNotEquals(product.getDateLastModified(), lastModified, "Should update last modified date");
     }
 
     @Test
