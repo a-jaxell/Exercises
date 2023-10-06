@@ -12,10 +12,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Predicate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -68,11 +65,11 @@ class WarehouseTest {
     void testGettingProductWithId_ShouldReturnProductRecord() {
         warehouse.addNewProduct(product);
         UUID id = product.getId();
-        ProductRecord actual = warehouse.getProduct(id);
+        Optional<ProductRecord> actual = warehouse.getProduct(id);
         assertThat(product)
-                .isNotEqualTo(actual)
+                .isNotEqualTo(actual.get())
                 .extracting(Product::getId)
-                .isEqualTo(actual.id());
+                .isEqualTo(actual.get().id());
     }
 
     @Test
@@ -87,7 +84,7 @@ class WarehouseTest {
                 .isNotEqualTo(wrongId);
 
         assertThatThrownBy(() -> warehouse.getProduct(wrongId))
-                .isInstanceOf(NullPointerException.class);
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -102,9 +99,9 @@ class WarehouseTest {
         warehouse.addNewProduct(product);
         warehouse.modifyProduct(id, "Cheese_Slicer", ProductCategory.CHEF_KNIVES, 1);
 
-        ProductRecord modifiedProduct = warehouse.getProduct(id);
+        Optional<ProductRecord> modifiedProduct = warehouse.getProduct(id);
 
-        assertThat(modifiedProduct)
+        assertThat(modifiedProduct.get())
                 .isNotNull()
                 .isEqualTo(expected);
 
@@ -151,7 +148,7 @@ class WarehouseTest {
         warehouse.modifyProduct(productOneId, "Sauce_swirler", ProductCategory.WHISKS, 8);
         List<ProductRecord> actual = warehouse.getProductsModified();
 
-        assertThat(warehouse.getProducts()).contains(warehouse.getProduct(productOneId));
+        assertThat(warehouse.getProducts()).contains(warehouse.getProduct(productOneId).get());
         assertThat(actual).allMatch(isModified);
     }
 

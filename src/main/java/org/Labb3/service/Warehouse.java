@@ -33,15 +33,14 @@ public class Warehouse {
         storage.add(product);
     }
 
-    public ProductRecord getProduct(UUID id) throws IllegalArgumentException, NullPointerException {
-        Product result = storage.stream()
-                .filter(o -> o.getId() == id)
-                .findFirst()
-                .orElse(null);
-        if (result == null) {
-            throw new NullPointerException("Error: Product Id does not exist");
+    public Optional<ProductRecord> getProduct(UUID id) throws IllegalArgumentException {
+        Optional<Product> result = storage.stream()
+                .filter(o -> o.getId().equals(id))
+                .findFirst();
+        if (result.isEmpty()) {
+            throw new IllegalArgumentException("There is no product with that ID");
         }
-        return ProductRecord.returnRecord(result);
+            return Optional.of(ProductRecord.returnRecord(result.get()));
     }
 
     public void modifyProduct(UUID id, String newName, ProductCategory newCategory, int newRating) {
