@@ -11,15 +11,13 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 import java.util.function.Predicate;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.MapAssert.assertThatMap;
-import static org.junit.jupiter.api.Assertions.*;
 
 class WarehouseTest {
     private Product product;
@@ -54,48 +52,58 @@ class WarehouseTest {
     void shouldGetAllProducts() {
         warehouse.addNewProduct(product);
         List<ProductRecord> productList = warehouse.getProducts();
-        assertThat(productList).isInstanceOf(List.class);
-        assertEquals(productList.size(), 1, "Warehouse should contain one product");
-        assertEquals(productList.get(0).id(), product.getId(), "Warehouse should contain the added product");
+        assertThat(productList)
+                .isInstanceOf(List.class)
+                .hasSize(1)
+                .extracting(ProductRecord::id)
+                .contains(product.getId());
+
     }
 
     @Test
     void testGettingProductWithId_ShouldReturnProductRecord() {
         warehouse.addNewProduct(product);
         UUID id = product.getId();
-        ProductRecord actual = warehouse.getProduct(id);
-        assertEquals(product.getId().toString(), actual.id().toString());
-        assertThat(product.toString()).isNotEqualTo(actual.toString());
+        Optional<ProductRecord> actual = warehouse.getProduct(id);
+        assertThat(product)
+                .isNotEqualTo(actual.get())
+                .extracting(Product::getId)
+                .isEqualTo(actual.get().id());
     }
 
     @Test
     void testGettingProductWithWrongId_ShouldThrowException() {
         UUID id = product.getId();
         UUID wrongId = UUID.randomUUID();
-        assertEquals(id.getClass(), wrongId.getClass());
-        assertNotSame(id, wrongId);
-        assertThrows(NullPointerException.class, () -> warehouse.getProduct(wrongId));
+
+        assertThat(id)
+                .isInstanceOf(UUID.class)
+                .extracting(UUID::getClass)
+                .isEqualTo(wrongId.getClass())
+                .isNotEqualTo(wrongId);
+
+        assertThatThrownBy(() -> warehouse.getProduct(wrongId))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void testModifyingProduct_ShouldSucceed() throws InterruptedException {
         //Calling alternate constructor for ability to set a fixed date.
-        Product product = new Product("Cheese_Grater", ProductCategory.UTENSILS, 5, fixedDate);
+
+        UUID id = UUID.randomUUID();
+        Product product = new Product(id, "Cheese_Grater", ProductCategory.UTENSILS, 5, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        Product resultProduct = new Product(id, "Cheese_Slicer", ProductCategory.CHEF_KNIVES, 1, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        ProductRecord expected = ProductRecord.returnRecord(resultProduct);
+
         warehouse.addNewProduct(product);
+        warehouse.modifyProduct(id, "Cheese_Slicer", ProductCategory.CHEF_KNIVES, 1);
 
+        Optional<ProductRecord> modifiedProduct = warehouse.getProduct(id);
 
-        String newName = "Cheese_Slicer";
-        int newRating = 1;
-        ProductCategory newCategory = ProductCategory.CHEF_KNIVES;
-        UUID id = product.getId();
-        LocalDateTime lastModified = product.getDateLastModified();
-        warehouse.modifyProduct(id, newName, newCategory, newRating);
+        assertThat(modifiedProduct.get())
+                .isNotNull()
+                .isEqualTo(expected);
 
-        assertEquals(newRating, product.getRating(), "Should recieve the new rating");
-        assertEquals(newName, product.getName(), "Should recieve the new name");
-        assertEquals(newCategory, product.getCategory(), "Should recieve the new category");
-        assertEquals(id, product.getId(), "Product Id shouldn't change");
-        assertNotEquals(product.getDateLastModified(), lastModified, "Should update last modified date");
     }
 
     @Test
@@ -108,8 +116,9 @@ class WarehouseTest {
                 .toList();
         List<ProductRecord> notActual = filledWarehouse.getProducts();
 
-        assertEquals(expected, actual, "Products should sort alphabetically(a-z)");
-        assertNotEquals(expected, notActual);
+        assertThat(expected)
+                .isEqualTo(actual)
+                .isNotEqualTo(notActual);
     }
 
     @Test
@@ -138,7 +147,7 @@ class WarehouseTest {
         warehouse.modifyProduct(productOneId, "Sauce_swirler", ProductCategory.WHISKS, 8);
         List<ProductRecord> actual = warehouse.getProductsModified();
 
-        assertThat(warehouse.getProducts()).contains(warehouse.getProduct(productOneId));
+        assertThat(warehouse.getProducts()).contains(warehouse.getProduct(productOneId).get());
         assertThat(actual).allMatch(isModified);
     }
 
@@ -153,8 +162,9 @@ class WarehouseTest {
     void shouldReturnAmountOfProductsForGivenCategory() {
 
         Map<ProductCategory, Long> expected = filledWarehouse.getProductsPerCategory();
-        assertThat(expected).doesNotContainEntry(ProductCategory.WHISKS, 0L);
-        assertThat(expected).containsEntry(ProductCategory.UTENSILS, 3L);
+        assertThat(expected)
+                .doesNotContainEntry(ProductCategory.WHISKS, 0L)
+                .containsEntry(ProductCategory.UTENSILS, 3L);
 
     }
 
@@ -177,9 +187,10 @@ class WarehouseTest {
 
         Map<String, Long> actual = filledWarehouse.numberPerFirstLetter();
 
-        assertThatMap(actual).isNotNull();
-        assertThatMap(actual).isNotEmpty();
-        assertThatMap(actual).containsEntry("S", 4L);
+        assertThatMap(actual)
+                .isNotNull()
+                .isNotEmpty()
+                .containsEntry("S", 4L);
     }
 
     @Test
@@ -191,9 +202,10 @@ class WarehouseTest {
 
         List<ProductRecord> actual = filledWarehouse.getNewTrendingProducts();
 
-        assertThat(actual).isNotNull();
-        assertThat(actual).contains(ProductRecord.returnRecord(hotProduct));
-        assertThat(actual).doesNotContain(ProductRecord.returnRecord(oldHotProduct));
+        assertThat(actual)
+                .isNotNull()
+                .contains(ProductRecord.returnRecord(hotProduct))
+                .doesNotContain(ProductRecord.returnRecord(oldHotProduct));
     }
 
     @Test
@@ -213,11 +225,12 @@ class WarehouseTest {
         List<ProductRecord> actual = filledWarehouse.getNewTrendingProducts(fixedDate);
         Comparator<ProductRecord> comparator = Comparator.comparing(ProductRecord::dateCreated, Comparator.reverseOrder());
 
-        assertThat(actual).isNotNull();
-        assertThat(actual).contains(ProductRecord.returnRecord(newProduct));
-        assertThat(actual).doesNotContain(ProductRecord.returnRecord(newProduct2));
-        assertThat(actual).contains(ProductRecord.returnRecord(newProduct3));
-        assertThat(actual).doesNotContain(ProductRecord.returnRecord(newProduct4));
-        assertThat(actual).isSortedAccordingTo(comparator);
+        assertThat(actual)
+                .isNotNull()
+                .contains(ProductRecord.returnRecord(newProduct))
+                .doesNotContain(ProductRecord.returnRecord(newProduct2))
+                .contains(ProductRecord.returnRecord(newProduct3))
+                .doesNotContain(ProductRecord.returnRecord(newProduct4))
+                .isSortedAccordingTo(comparator);
     }
 }

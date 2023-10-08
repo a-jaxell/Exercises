@@ -26,30 +26,43 @@ public class Warehouse {
     }
 
     public void addNewProduct(String name, ProductCategory category, int rating) {
-        storage.add(new Product(name, category, rating));
+        Product productCopy = new Product(name, category, rating);
+        storage.add(productCopy);
+    }
+
+    public void addNewProduct(String name, ProductCategory category, int rating, LocalDateTime dateCreated) {
+        Product productCopy = new Product(name, category, rating, dateCreated);
+        storage.add(productCopy);
     }
 
     public void addNewProduct(Product product) {
-        storage.add(product);
+        Product productCopy = new Product(product);
+        storage.add(productCopy);
     }
 
-    public ProductRecord getProduct(UUID id) throws IllegalArgumentException, NullPointerException {
-        Product result = storage.stream()
-                .filter(o -> o.getId() == id)
-                .findFirst()
-                .orElse(null);
-        if (result == null) {
-            throw new NullPointerException("Error: Product Id does not exist");
+    public Optional<ProductRecord> getProduct(UUID id) throws IllegalArgumentException {
+        Optional<Product> optional = storage.stream()
+                .filter(o -> o.getId().equals(id))
+                .findFirst();
+        if (optional.isPresent()) {
+            return Optional.of(ProductRecord.returnRecord(optional.get()));
+        } else {
+            throw new IllegalArgumentException("There is no product with that ID");
         }
-        return ProductRecord.returnRecord(result);
     }
 
-    public void modifyProduct(UUID id, String newName, ProductCategory newCategory, int newRating) {
+    public Optional<ProductRecord> modifyProduct(UUID id, String newName, ProductCategory newCategory, int newRating) {
         Optional<Product> productToModify = findProduct(id);
-
         if (productToModify.isPresent()) {
             productToModify.ifPresent(product -> product.update(newName, newCategory, newRating));
+
+            return Optional.of(ProductRecord.returnRecord(productToModify.get()));
+
+        } else {
+            return Optional.empty();
         }
+
+
     }
 
     private Optional<Product> findProduct(UUID id) {
