@@ -42,6 +42,15 @@ public class Product {
         this.dateLastModified = dateCreated;
     }
 
+    public Product(Product product) {
+        this.id = product.id;
+        this.name = product.name;
+        this.rating = product.rating;
+        this.category = product.category;
+        this.dateCreated = product.dateCreated;
+        this.dateLastModified = product.dateCreated;
+    }
+
     public String getName() {
         return name;
     }

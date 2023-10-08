@@ -26,11 +26,17 @@ public class Warehouse {
     }
 
     public void addNewProduct(String name, ProductCategory category, int rating) {
-        storage.add(new Product(name, category, rating));
+        Product productCopy = new Product(name, category, rating);
+        storage.add(productCopy);
+    }
+    public void addNewProduct(String name, ProductCategory category, int rating, LocalDateTime dateCreated) {
+        Product productCopy = new Product(name, category, rating, dateCreated);
+        storage.add(productCopy);
     }
 
     public void addNewProduct(Product product) {
-        storage.add(product);
+        Product productCopy = new Product(product);
+        storage.add(productCopy);
     }
 
     public Optional<ProductRecord> getProduct(UUID id) throws IllegalArgumentException {
