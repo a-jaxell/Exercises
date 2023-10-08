@@ -34,21 +34,29 @@ public class Warehouse {
     }
 
     public Optional<ProductRecord> getProduct(UUID id) throws IllegalArgumentException {
-        Optional<Product> result = storage.stream()
+        Optional<Product> optional = storage.stream()
                 .filter(o -> o.getId().equals(id))
                 .findFirst();
-        if (result.isEmpty()) {
+        if (optional.isPresent()){
+            return Optional.of(ProductRecord.returnRecord(optional.get()));
+        }
+        else{
             throw new IllegalArgumentException("There is no product with that ID");
         }
-            return Optional.of(ProductRecord.returnRecord(result.get()));
     }
 
-    public void modifyProduct(UUID id, String newName, ProductCategory newCategory, int newRating) {
+    public Optional<ProductRecord> modifyProduct(UUID id, String newName, ProductCategory newCategory, int newRating) {
         Optional<Product> productToModify = findProduct(id);
-
         if (productToModify.isPresent()) {
             productToModify.ifPresent(product -> product.update(newName, newCategory, newRating));
+
+            return Optional.of(ProductRecord.returnRecord(productToModify.get()));
+
+        } else {
+            return Optional.empty();
         }
+
+
     }
 
     private Optional<Product> findProduct(UUID id) {
