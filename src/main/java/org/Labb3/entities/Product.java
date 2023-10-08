@@ -32,6 +32,7 @@ public class Product {
         this.dateCreated = dateCreated;
         this.dateLastModified = dateCreated;
     }
+
     // Only for testing
     public Product(UUID id, String name, ProductCategory category, int rating, LocalDateTime dateCreated) {
         this.id = id;

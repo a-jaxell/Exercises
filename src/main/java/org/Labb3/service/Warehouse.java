@@ -29,6 +29,7 @@ public class Warehouse {
         Product productCopy = new Product(name, category, rating);
         storage.add(productCopy);
     }
+
     public void addNewProduct(String name, ProductCategory category, int rating, LocalDateTime dateCreated) {
         Product productCopy = new Product(name, category, rating, dateCreated);
         storage.add(productCopy);
@@ -43,10 +44,9 @@ public class Warehouse {
         Optional<Product> optional = storage.stream()
                 .filter(o -> o.getId().equals(id))
                 .findFirst();
-        if (optional.isPresent()){
+        if (optional.isPresent()) {
             return Optional.of(ProductRecord.returnRecord(optional.get()));
-        }
-        else{
+        } else {
             throw new IllegalArgumentException("There is no product with that ID");
         }
     }

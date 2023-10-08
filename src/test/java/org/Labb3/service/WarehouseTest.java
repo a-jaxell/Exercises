@@ -18,7 +18,6 @@ import java.util.function.Predicate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.MapAssert.assertThatMap;
-import static org.junit.jupiter.api.Assertions.*;
 
 class WarehouseTest {
     private Product product;
@@ -92,9 +91,9 @@ class WarehouseTest {
         //Calling alternate constructor for ability to set a fixed date.
 
         UUID id = UUID.randomUUID();
-        Product product = new Product(id,"Cheese_Grater", ProductCategory.UTENSILS, 5, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
-        Product resultProduct = new Product(id,"Cheese_Slicer", ProductCategory.CHEF_KNIVES, 1, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
-        ProductRecord expected =  ProductRecord.returnRecord(resultProduct);
+        Product product = new Product(id, "Cheese_Grater", ProductCategory.UTENSILS, 5, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        Product resultProduct = new Product(id, "Cheese_Slicer", ProductCategory.CHEF_KNIVES, 1, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        ProductRecord expected = ProductRecord.returnRecord(resultProduct);
 
         warehouse.addNewProduct(product);
         warehouse.modifyProduct(id, "Cheese_Slicer", ProductCategory.CHEF_KNIVES, 1);
